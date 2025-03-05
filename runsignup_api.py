@@ -51,7 +51,7 @@ def get_event_results(race_id, event_id):
     # I want OVERALL RESULTS! Everything else I can figure out later.
     # I have no idea how standardized this format for race results is, so this function may not be very generally useful
     cur_page = 1
-    url = f"https://runsignup.com/Rest/race/{race_id}/results/get-results?event_id={event_id}&api_key={API_KEY}&api_secret={API_SECRET}&format=json&page=1"
+    url = f"https://runsignup.com/Rest/race/{race_id}/results/get-results?event_id={event_id}&api_key={API_KEY}&api_secret={API_SECRET}&format=json"
     all_results = []
     while True:
         response = requests.get(url + "&page=" + str(cur_page))
