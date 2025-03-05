@@ -72,11 +72,36 @@ def get_event_results(race_id, event_id):
     print("TOTAL RESULTS", len(all_results))
     return all_results
 
+def filter_results(event_results): 
+    # Filter out the relevant information from the results
+    # Relevant result keys:
+    #   - place, gender, state, clock_time, chip_time, pace, age 
+    relevant_results = []
+    for result in event_results:
+        relevant_result = {
+            "place": result["place"],
+            "gender": result["gender"],
+            "state": result["state"],
+            "clock_time": result["clock_time"],
+            "chip_time": result["chip_time"],
+            "pace": result["pace"],
+            "age": result["age"]
+        }
+        relevant_results.append(relevant_result)
+    return relevant_results
+
 if __name__ == "__main__":
     #get_race_ids("2024-11-01", "2025-11-15", "cambridge", "MA")
     CAMBRIDGE_HALF = "74589"
     CAMBRIDGE_2024_HALF = "799523"
     #get_event_ids(CAMBRIDGE_HALF)
     event_results = get_event_results("119025", "872447")
+
+    print(event_results[0].keys())
+    relevant_results = filter_results(event_results)
+
+    print(relevant_results[0].keys())
+
+
     
 
