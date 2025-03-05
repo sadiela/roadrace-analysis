@@ -31,6 +31,9 @@ def get_race_ids(startDate, endDate, city, state):
         race_data = response.json()["races"]
         for race in race_data:
             print(race["race"]["name"],race["race"]["race_id"])
+    else:
+        # Print an error message if the request failed
+        print("Error:", response.status_code, response.text)
 
 def get_event_ids(race_id):
     url = f"https://runsignup.com/Rest/race/{race_id}?api_key={API_KEY}&api_secret={API_SECRET}&format=json"
@@ -39,6 +42,9 @@ def get_event_ids(race_id):
         event_data = response.json()["race"]["events"]
         for event in event_data:
             print(event["event_id"], event["name"], event["start_time"])
+    else:
+        # Print an error message if the request failed
+        print("Error:", response.status_code, response.text)
 
 def get_event_results(race_id, event_id):
     url = f"https://runsignup.com/Rest/race/{race_id}/results/get-results?event_id={event_id}&api_key={API_KEY}&api_secret={API_SECRET}&format=json&page=1"
@@ -47,6 +53,9 @@ def get_event_results(race_id, event_id):
         results = response.json()["individual_results_sets"][0]["results"]
         for res in results:
             print(res["place"], res["first_name"], res["chip_time"])
+    else:
+        # Print an error message if the request failed
+        print("Error:", response.status_code, response.text)
 
 if __name__ == "__main__":
     get_race_ids("2024-12-01", "2025-12-15", "cambridge", "MA")
@@ -54,38 +63,3 @@ if __name__ == "__main__":
     get_event_results("119025", "872447")
     sys.exit(0)
 
-
-# Construct the API endpoint URL
-url = f"https://runsignup.com/rest/races?api_key={API_KEY}&city=cambridge&start_date={startDate}&end_date={endDate}&format=json"
-print(url)
-
-response = requests.get(url)
-
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Parse the JSON response
-    race_data = response.json()
-    print(race_data['races'][0])
-    for race in race_data['races']:
-        print(race["race"].keys())
-        raceid = race["race"]["race_id"]
-
-else:
-    # Print an error message if the request failed
-    print("Error:", response.status_code, response.text)
-
-print(race_id)
-#res_set_url = f"https://runsignup.com/rest/race/{race_id}/results/get-result-sets?event_id=1&api_key={API_KEY}&api_secret={API_SECRET}"
-res_url = f"https://runsignup.com/rest/race/{race_id}/results/get-results?event_id={event_id}&api_key={API_KEY}&api_secret={API_SECRET}&format=json"
-#participants_url = f"https://runsignup.com/rest/race/{race_id}/participants?api_key={API_KEY}&api_secret={API_SECRET}&format=json"
-#race_url = f"https://runsignup.com/rest/v2/races/{race_id}?api_key={API_KEY}&api_secret={API_SECRET}&format=json"
-print(res_url)
-
-response = requests.get(res_url)
-
-if response.status_code == 200:
-    cur_race = response.json()
-    print(cur_race)
-else: 
-    print("Error:", response.status_code, response.text)
-# Make the API request
