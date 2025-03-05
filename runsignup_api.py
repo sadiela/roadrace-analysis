@@ -91,7 +91,7 @@ def filter_results(event_results):
     return relevant_results
 
 if __name__ == "__main__":
-    #get_race_ids("2024-11-01", "2025-11-15", "cambridge", "MA")
+    get_race_ids("2024-12-01", "2024-12-15", "cambridge", "MA")
     CAMBRIDGE_HALF = "74589"
     CAMBRIDGE_2024_HALF = "799523"
     #get_event_ids(CAMBRIDGE_HALF)
@@ -101,6 +101,9 @@ if __name__ == "__main__":
     relevant_results = filter_results(event_results)
 
     print(relevant_results[0].keys())
+
+    with open('./roadrace_data/winter_solestice_5K_run_walk_119025_872447.json', 'w') as fout:
+        json.dump(relevant_results, fout)
 
 
     
