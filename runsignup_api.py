@@ -47,19 +47,36 @@ def get_event_ids(race_id):
         print("Error:", response.status_code, response.text)
 
 def get_event_results(race_id, event_id):
+    # unfortunately there is no way to know how many pages of results there are (that I can tell) so we will have to do a while loop
+    # I want OVERALL RESULTS! Everything else I can figure out later.
+    # I have no idea how standardized this format for race results is, so this function may not be very generally useful
+    cur_page = 1
     url = f"https://runsignup.com/Rest/race/{race_id}/results/get-results?event_id={event_id}&api_key={API_KEY}&api_secret={API_SECRET}&format=json&page=1"
-    response = requests.get(url)
-    if response.status_code == 200:
-        results = response.json()["individual_results_sets"][0]["results"]
-        for res in results:
-            print(res["place"], res["first_name"], res["chip_time"])
-    else:
-        # Print an error message if the request failed
-        print("Error:", response.status_code, response.text)
+    all_results = []
+    while True:
+        response = requests.get(url + "&page=" + str(cur_page))
+        if response.status_code == 200:
+            results = response.json()["individual_results_sets"] #[0]["results"]
+            if len(results) != 0:
+                if len(results[0]["results"]) == 0:
+                    break
+                all_results.extend(results[0]["results"])
+            else:
+                print("No results found")
+                break
+            cur_page += 1
+        else:
+            # Print an error message if the request failed
+            print("Error:", response.status_code, response.text)
+            break
+    print("TOTAL RESULTS", len(all_results))
+    return all_results
 
 if __name__ == "__main__":
-    get_race_ids("2024-12-01", "2025-12-15", "cambridge", "MA")
-    get_event_ids("119025")
-    get_event_results("119025", "872447")
-    sys.exit(0)
+    #get_race_ids("2024-11-01", "2025-11-15", "cambridge", "MA")
+    CAMBRIDGE_HALF = "74589"
+    CAMBRIDGE_2024_HALF = "799523"
+    #get_event_ids(CAMBRIDGE_HALF)
+    event_results = get_event_results("119025", "872447")
+    
 
