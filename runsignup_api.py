@@ -4,15 +4,6 @@ import sys
 from API_CONSTANTS import API_KEY, API_SECRET 
 
 '''
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/sadiela/roadrace-analysis.git
-git push -u origin main
-'''
-
-'''
 Steps for Obtaining Race Result Data from the RunSignup API
 1. Obtain an API key and secret from RunSignup. You can join 
    their affiliate program to obtain these credentials. (https://runsignup.com/API)
