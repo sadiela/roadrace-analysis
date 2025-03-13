@@ -26,6 +26,7 @@ endDate = '2024-12-15'
 
 def get_race_ids(startDate, endDate, city, state):
     url = f"https://runsignup.com/rest/races?api_key={API_KEY}&api_secret={API_SECRET}&city={city}&state={state}&start_date={startDate}&end_date={endDate}&format=json"
+    #url = f"https://runsignup.com/rest/races?api_key={API_KEY}&api_secret={API_SECRET}&state={state}&start_date={startDate}&end_date={endDate}&format=json"
     response = requests.get(url)
     if response.status_code == 200:
         race_data = response.json()["races"]
