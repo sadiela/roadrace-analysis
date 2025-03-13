@@ -1,3 +1,4 @@
 # Ignore API constant file
 API_CONSTANTS.py
 /roadrace_data/
+/__pycache__/
